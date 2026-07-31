@@ -1,15 +1,22 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"errors"
+)
 
+func commandExplore(cfg *config, args ...string) error {
 
-func commandExplore(cfg *config) error {
-	encountersResp, err := cfg.pokeapiClient.ListPokemons(cfg.locationArea)
+	if len(args) == 0 {
+		return errors.New("Please add the location to explore")
+	}
+
+	encountersResp, err := cfg.pokeapiClient.ListPokemons(&args[0])
 	if err != nil {
 		return err
 	}
 	
-	fmt.Printf("Exploring %s...\n", *cfg.locationArea)
+	fmt.Printf("Exploring %s...\n", args[0])
 	for _, encounters := range encountersResp.Encounters {
 		fmt.Printf("%s\n", encounters.Pokemon.Name)
 	}
