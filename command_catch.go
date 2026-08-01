@@ -29,6 +29,7 @@ func commandCatch(cfg *config, args ...string) error {
 	if roll < threshold {
 		cfg.PlayerPokemon[pokemonDetailsResp.Name] = pokemonDetailsResp
 		fmt.Printf("%s was caught!\n", pokemonDetailsResp.Name)
+		fmt.Printf("You may now inspect it with the inspect command.\n")
 	} else {
 		fmt.Printf("%s escaped!\n", pokemonDetailsResp.Name)
 	}
